@@ -10,7 +10,7 @@ data class ProductVO(
     @PrimaryKey
     @ColumnInfo(name = "product_id")
     @SerializedName("product_id")
-    var product_id: Int = 0,
+    var product_id: Int,
 
     @ColumnInfo(name = "product_name")
     @SerializedName("product_name")

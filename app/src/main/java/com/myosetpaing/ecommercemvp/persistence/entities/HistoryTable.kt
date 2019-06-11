@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(
     tableName = "history",
-    indices = [Index("product_id")],
+    indices = [Index("product_id", unique = true)],
     foreignKeys = [ForeignKey(
         entity = ProductVO::class
         , parentColumns = ["product_id"], childColumns = ["product_id"]

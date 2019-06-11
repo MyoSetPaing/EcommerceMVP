@@ -12,9 +12,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.ProfileActivity">
+        <activity android:name=".activities.ProfileActivity"
+                  android:theme="@style/AppTheme.TranslucentActionBar">
         </activity>
-        <activity android:name=".activities.FavoriteActivity">
+        <activity android:name=".activities.FavoriteActivity"
+                  android:theme="@style/AppTheme.TranslucentActionBar">
         </activity>
         <activity
                 android:name=".activities.LoginActivity"

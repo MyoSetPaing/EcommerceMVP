@@ -1,5 +1,7 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters.impl
 
+import com.myosetpaing.ecommercemvp.data.model.HistoryModel
+import com.myosetpaing.ecommercemvp.data.model.HistoryModelImpl
 import com.myosetpaing.ecommercemvp.data.model.ProductModel
 import com.myosetpaing.ecommercemvp.data.model.ProductModelImpl
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
@@ -11,6 +13,7 @@ class ProductDetailPresenterImpl : BasePresenterImpl<ProductDetailView>(),
     ProductDetailPresenter {
 
     private val mProductModel: ProductModel = ProductModelImpl
+    private val mHistoryModel: HistoryModel = HistoryModelImpl
 
     override fun onUIReady(productId: Int) {
 
@@ -20,6 +23,7 @@ class ProductDetailPresenterImpl : BasePresenterImpl<ProductDetailView>(),
             }
 
         })
+        mHistoryModel.addHistory(productId)
 
     }
 

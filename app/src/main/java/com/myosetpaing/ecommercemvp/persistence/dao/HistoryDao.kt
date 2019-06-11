@@ -1,5 +1,6 @@
 package com.myosetpaing.ecommercemvp.persistence.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,5 +15,5 @@ interface HistoryDao {
     fun addHistory(history: HistoryTable)
 
     @Query("select b.* from history as a inner join product as b on a.product_id=b.product_id order by updated_at desc")
-    fun getHistory(): List<ProductVO>
+    fun getHistory():LiveData<List<ProductVO>>
 }

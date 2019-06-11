@@ -58,6 +58,11 @@ class MainActivity : BaseActivity(), ProductView {
             mProductPresenter.onTapFavoriteFab()
         }
 
+        ivCategory.setOnClickListener {
+            goToProfileActivity()
+        }
+
+
     }
 
     private fun init() {
@@ -108,5 +113,10 @@ class MainActivity : BaseActivity(), ProductView {
 
     override fun getMyContext(): Context {
         return this
+    }
+
+    private fun goToProfileActivity() {
+        val intent = ProfileActivity.newIntent(this)
+        startActivity(intent)
     }
 }
