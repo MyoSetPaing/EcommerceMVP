@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@color/colorPrimary"
+    >
+        <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:layout_marginStart="@dimen/margin_medium_3"
+        />
+        <TextView
+                android:id="@+id/future"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Future"
+                android:textSize="@dimen/text_heading_1x"
+                android:textColor="@color/colorIcon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+        />
+        <TextView
+                android:id="@+id/furniture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Furniture"
+                android:textSize="@dimen/text_heading_2x"
+                android:textColor="@color/colorIcon"
+                android:layout_below="@id/future"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/margin_medium"
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/rlLoginForm"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_round_edit_text"
+
+
+    >
+        <TextView
+                android:id="@+id/tvLoginFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login First"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_xxlarge"
+                android:textSize="@dimen/text_regular_3x"
+        />
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etPhoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tvLoginFirst"
+                android:background="@drawable/bg_login_edit_text"
+                android:textColorHint="@color/colorSecondryText"
+                android:padding="@dimen/margin_medium_2"
+                android:focusable="auto"
+                android:hint="Phone Number"
+                android:layout_margin="@dimen/margin_medium_2"
+        />
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etPasswond"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/etPhoneNo"
+                android:background="@drawable/bg_login_edit_text"
+                android:textColorHint="@color/colorSecondryText"
+                android:padding="@dimen/margin_medium_2"
+                android:focusable="auto"
+                android:hint="Password"
+                android:layout_margin="@dimen/margin_medium_2"
+        />
+
+    </RelativeLayout>
+    <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:layout_below="@id/rlLoginForm"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/colorIcon"
+            android:layout_marginTop="@dimen/margin_medium_2"/>
+
+</RelativeLayout>

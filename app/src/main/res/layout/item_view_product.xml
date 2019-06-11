@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium_2"
+>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="@dimen/margin_medium"
+            app:cardElevation="2dp"
+    >
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:id="@+id/iv_product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/pink"
+            />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#60000000"
+            >
+
+            </View>
+            <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elegant Lamp"
+                    android:textColor="@color/colorIcon"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/margin_xlarge"
+
+            />
+            <TextView
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$13"
+                    android:textColor="@color/colorIcon"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/margin_medium"
+
+            />
+            <ImageView
+                    android:id="@+id/ivUnFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_favorite_white_24dp"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:visibility="visible"
+            />
+            <ImageView
+                    android:id="@+id/ivFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_favorite_black_24dp"
+                    android:layout_margin="@dimen/margin_medium"
+            />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

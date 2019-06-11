@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.padcmyanmar.padc7.hellocommonuielements.MainActivity">
+
+    <item
+            android:id="@+id/action_home"
+            android:orderInCategory="100"
+            android:title="Home"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_home_grey_24dp"
+    />
+    <item
+            android:id="@+id/action_profile"
+            android:orderInCategory="110"
+            android:title="@string/action_settings"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_person_black_24dp"
+    />
+
+
+</menu>
