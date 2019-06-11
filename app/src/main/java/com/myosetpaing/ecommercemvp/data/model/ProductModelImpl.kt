@@ -1,5 +1,6 @@
 package com.myosetpaing.ecommercemvp.data.model
 
+import androidx.lifecycle.LiveData
 import com.myosetpaing.ecommercemvp.data.vos.CategoryVO
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
 import com.myosetpaing.ecommercemvp.delegates.CategoryDelegate
@@ -9,51 +10,40 @@ import com.myosetpaing.ecommercemvp.delegates.ProductDetailDelegate
 object ProductModelImpl : BaseModel(), ProductModel {
 
 
-    override fun getCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate): List<CategoryVO> {
+    override fun getCategoryList(
+        accessToken: String,
+        page: Int,
+        networkFailure: (String) -> Unit
+    ): LiveData<List<CategoryVO>> {
 
-        val categoryList = mDataBase.categoryDao().getCategoryList()
         mDataAgent.loadCategory(page, accessToken, object : CategoryDelegate {
             override fun onSuccess(categoryList: List<CategoryVO>) {
                 mDataBase.categoryDao().insertCategoryList(categoryList)
-                val categoryListDB = mDataBase.categoryDao().getCategoryList()
-                categoryDelegate.onSuccess(categoryListDB)
             }
 
             override fun onFail(msg: String) {
-                if (mDataBase.isCategoryAvailable()) {
-                    val categoryListDB = mDataBase.categoryDao().getCategoryList()
-                    categoryDelegate.onSuccess(categoryListDB)
-                } else {
-                    categoryDelegate.onFail(msg)
-                }
+                networkFailure(msg)
             }
 
         })
-        return categoryList
+        return mDataBase.categoryDao().getCategoryList()
     }
 
-    override fun getProductList(accessToken: String, page: Int, productDelegate: ProductDelegate): List<ProductVO> {
-        val productList = mDataBase.productDao().getProductList()
+
+    override fun getProductList(accessToken: String, page: Int, networkFailure: (String) -> Unit): LiveData<List<ProductVO>> {
         mDataAgent.loadProduct(page, accessToken, object : ProductDelegate {
             override fun onSuccess(productList: List<ProductVO>) {
                 mDataBase.productDao().insertProductList(productList)
-                val productListDB = mDataBase.productDao().getProductList()
-                productDelegate.onSuccess(productListDB)
             }
 
             override fun onFail(msg: String) {
-
-                if (mDataBase.isCategoryAvailable()) {
-                    val productListDB = mDataBase.productDao().getProductList()
-                    productDelegate.onSuccess(productListDB)
-                } else {
-                    productDelegate.onFail(msg)
-                }
+               networkFailure(msg)
             }
 
         })
-        return productList
+        return mDataBase.productDao().getProductList()
     }
+
 
     override fun getProductDetail(productId: Int, productDetailDelegate: ProductDetailDelegate) {
         val productDetail = mDataBase.productDao().getProductById(productId)

@@ -1,6 +1,6 @@
 package com.myosetpaing.ecommercemvp.mvp.views
 
-interface LoginView {
+interface LoginView : BaseView{
     fun showMainActivity()
     fun showLoginFailMessage(msg: String)
 }

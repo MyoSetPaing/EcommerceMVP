@@ -1,6 +1,6 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters
 
-interface ProductDetailPresenter: BasePresenter{
+interface ProductDetailPresenter{
 
     fun onUIReady(productId: Int)
 

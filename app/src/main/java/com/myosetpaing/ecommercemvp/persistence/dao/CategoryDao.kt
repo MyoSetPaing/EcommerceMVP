@@ -1,5 +1,6 @@
 package com.myosetpaing.ecommercemvp.persistence.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,7 +15,7 @@ interface CategoryDao {
     fun insertCategoryList(categoryList: List<CategoryVO>)
 
     @Query("select * from category")
-    fun getCategoryList(): List<CategoryVO>
+    fun getCategoryList(): LiveData<List<CategoryVO>>
 
     @Query("select count(*) from category")
     fun getCategoryCount(): Int

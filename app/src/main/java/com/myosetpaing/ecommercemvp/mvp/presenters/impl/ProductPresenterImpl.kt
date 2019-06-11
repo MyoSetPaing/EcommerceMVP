@@ -1,62 +1,60 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters.impl
 
+import androidx.lifecycle.Observer
+import com.myosetpaing.ecommercemvp.activities.BaseActivity
+import com.myosetpaing.ecommercemvp.data.model.*
 import com.myosetpaing.ecommercemvp.data.vos.CategoryVO
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
-import com.myosetpaing.ecommercemvp.delegates.CategoryDelegate
-import com.myosetpaing.ecommercemvp.delegates.ProductDelegate
 import com.myosetpaing.ecommercemvp.mvp.presenters.ProductPresenter
 import com.myosetpaing.ecommercemvp.mvp.views.ProductView
 import com.myosetpaing.ecommercemvp.network.EcommerceDataAgent
 
 
-class ProductPresenterImpl(val mProductView: ProductView) : BasePresenterImpl(), ProductPresenter {
+class ProductPresenterImpl : BasePresenterImpl<ProductView>(), ProductPresenter {
 
 
-    override fun onUIReady() {
+    private val mProductModel: ProductModel = ProductModelImpl
+    private val mLoginModel: LoginModel = LoginModelImpl
+    private val mFavoriteModel: FavoriteModel = FavoriteModelImpl
+    override fun onUIReady(activity: BaseActivity) {
 
         if (mLoginModel.isUserLogin()) {
-            val categoryList =
-                mProductModel.getCategoryList(EcommerceDataAgent.ACCESS_TOKEN, 1, object : CategoryDelegate {
-                    override fun onSuccess(categoryList: List<CategoryVO>) {
-                        mProductView.showCategory(categoryList)
-                    }
+            mProductModel.getCategoryList(EcommerceDataAgent.ACCESS_TOKEN, 1) {
+                mView.showFailMessage(it)
+            }.observe(activity, Observer {
+                if (it != null) {
+                    mView.showCategory(it)
+                } else {
+                    mView.showFailMessage("No Category List")
+                }
+            })
 
-                    override fun onFail(msg: String) {
-                        mProductView.showFailMessage(msg)
-                    }
+            mProductModel.getProductList(EcommerceDataAgent.ACCESS_TOKEN, 1) {
+                mView.showFailMessage(it)
+            }.observe(activity, Observer {
+                if (it != null) {
+                    mView.showProduct(it)
+                }
+                mView.showFailMessage("No Product List")
+            })
 
-                })
-            mProductView.showCategory(categoryList)
-
-            val productList =
-                mProductModel.getProductList(EcommerceDataAgent.ACCESS_TOKEN, 1, object : ProductDelegate {
-                    override fun onSuccess(productList: List<ProductVO>) {
-                        mProductView.showProduct(productList)
-                    }
-
-                    override fun onFail(msg: String) {
-                        mProductView.showFailMessage(msg)
-                    }
-
-                })
-            mProductView.showProduct(productList)
         } else {
-            mProductView.goToLoginScreen()
+            mView.goToLoginScreen()
         }
 
     }
 
     override fun onTapFavoriteFab() {
-        mProductView.goToFavoriteScreen()
+        mView.goToFavoriteScreen()
     }
 
 
     override fun onTapCategoryItem(category: CategoryVO) {
-        mProductView.showCategoryDetail(category.category_id, category.category_name!!)
+        mView.showCategoryDetail(category.category_id, category.category_name!!)
     }
 
     override fun onTapProductItem(product: ProductVO) {
-        mProductView.showProductDetail(product.product_id)
+        mView.showProductDetail(product.product_id)
     }
 
     override fun onTapFavorite(product: ProductVO) {
@@ -67,9 +65,5 @@ class ProductPresenterImpl(val mProductView: ProductView) : BasePresenterImpl(),
         mFavoriteModel.removeFromFavoriteLsit(product.product_id)
     }
 
-    override fun onStart() {
-    }
 
-    override fun onStop() {
-    }
 }

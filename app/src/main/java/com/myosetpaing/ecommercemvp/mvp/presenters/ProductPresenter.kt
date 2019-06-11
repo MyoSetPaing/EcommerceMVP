@@ -1,11 +1,12 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters
 
+import com.myosetpaing.ecommercemvp.activities.BaseActivity
 import com.myosetpaing.ecommercemvp.delegates.CategoryItemDelegate
 import com.myosetpaing.ecommercemvp.delegates.ProductItemDelegate
 
-interface ProductPresenter : BasePresenter , CategoryItemDelegate,ProductItemDelegate{
+interface ProductPresenter :   CategoryItemDelegate,ProductItemDelegate{
 
-    fun onUIReady()
+    fun onUIReady(activity: BaseActivity)
     fun onTapFavoriteFab()
 
 }

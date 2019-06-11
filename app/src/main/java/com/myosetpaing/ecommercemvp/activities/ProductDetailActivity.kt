@@ -3,18 +3,17 @@ package com.myosetpaing.ecommercemvp.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.myosetpaing.ecommercemvp.R
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
-import com.myosetpaing.ecommercemvp.mvp.presenters.ProductDetailPresenter
 import com.myosetpaing.ecommercemvp.mvp.presenters.impl.ProductDetailPresenterImpl
 import com.myosetpaing.ecommercemvp.mvp.views.ProductDetailView
 import kotlinx.android.synthetic.main.activity_product_detail.*
-import kotlinx.android.synthetic.main.item_view_product.*
 
 class ProductDetailActivity : BaseActivity(), ProductDetailView {
 
-    val mProductDetailPresenter: ProductDetailPresenter = ProductDetailPresenterImpl(this)
+    private lateinit var mProductDetailPresenter: ProductDetailPresenterImpl
     var productId = 0
 
     companion object {
@@ -27,7 +26,8 @@ class ProductDetailActivity : BaseActivity(), ProductDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
-        mProductDetailPresenter.onCreate()
+        mProductDetailPresenter=ViewModelProviders.of(this).get(ProductDetailPresenterImpl::class.java)
+        mProductDetailPresenter.initPresenter(this)
         retrieveExtra()
         mProductDetailPresenter.onUIReady(productId)
 
@@ -48,5 +48,10 @@ class ProductDetailActivity : BaseActivity(), ProductDetailView {
         tv_price.text = product.product_price
 
     }
+    override fun getMyContext(): Context {
+        return  this
+
+    }
+
 
 }

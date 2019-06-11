@@ -3,16 +3,14 @@ package com.myosetpaing.ecommercemvp.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.myosetpaing.ecommercemvp.BottomOffsetDecoration
 import com.myosetpaing.ecommercemvp.R
 import com.myosetpaing.ecommercemvp.adapters.CategoryRecyclerViewAdapter
 import com.myosetpaing.ecommercemvp.adapters.ProductRecyclerViewAdapter
 import com.myosetpaing.ecommercemvp.data.vos.CategoryVO
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
-import com.myosetpaing.ecommercemvp.mvp.presenters.ProductPresenter
 import com.myosetpaing.ecommercemvp.mvp.presenters.impl.ProductPresenterImpl
 import com.myosetpaing.ecommercemvp.mvp.views.ProductView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,9 +18,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity(), ProductView {
 
 
-    private val mProductPresenter: ProductPresenter = ProductPresenterImpl(this)
-    private val mCategoryAdapter: CategoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this, mProductPresenter)
-    private val mProductAdapter: ProductRecyclerViewAdapter = ProductRecyclerViewAdapter(this, mProductPresenter)
+    private lateinit var mProductPresenter: ProductPresenterImpl
+    private lateinit var mCategoryAdapter: CategoryRecyclerViewAdapter
+    private lateinit var mProductAdapter: ProductRecyclerViewAdapter
     private lateinit var bottomOffsetDecoration: BottomOffsetDecoration
 
     companion object {
@@ -37,6 +35,8 @@ class MainActivity : BaseActivity(), ProductView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mProductPresenter = ViewModelProviders.of(this).get(ProductPresenterImpl::class.java)
+        mProductPresenter.initPresenter(this)
         init()
         rv_category.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             this,
@@ -52,7 +52,7 @@ class MainActivity : BaseActivity(), ProductView {
         )
         rv_productList.adapter = mProductAdapter
         rv_productList.addItemDecoration(bottomOffsetDecoration)
-        mProductPresenter.onUIReady()
+        mProductPresenter.onUIReady(this)
 
         fab.setOnClickListener {
             mProductPresenter.onTapFavoriteFab()
@@ -61,8 +61,9 @@ class MainActivity : BaseActivity(), ProductView {
     }
 
     private fun init() {
-        mProductPresenter.onCreate()
         setBottomOffsetDecoration()
+        mCategoryAdapter = CategoryRecyclerViewAdapter(this, mProductPresenter)
+        mProductAdapter = ProductRecyclerViewAdapter(this, mProductPresenter)
 
     }
 
@@ -105,4 +106,7 @@ class MainActivity : BaseActivity(), ProductView {
         bottomOffsetDecoration = BottomOffsetDecoration(resources.getDimension(R.dimen.bottom_offset_dp).toInt())
     }
 
+    override fun getMyContext(): Context {
+        return this
+    }
 }

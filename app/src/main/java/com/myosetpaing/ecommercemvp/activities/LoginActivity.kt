@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), LoginView {
 
+
     private var mLoginPresenter: LoginPresenter = LoginPresenterImpl(this)
 
     companion object {
@@ -25,7 +26,6 @@ class LoginActivity : BaseActivity(), LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        mLoginPresenter.onCreate()
 
         btnLogin.setOnClickListener {
             mLoginPresenter.tapUserLoginButton("09783499931", "Abcdefg")
@@ -41,6 +41,9 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun showLoginFailMessage(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+    override fun getMyContext(): Context {
+        return this
     }
 }
 

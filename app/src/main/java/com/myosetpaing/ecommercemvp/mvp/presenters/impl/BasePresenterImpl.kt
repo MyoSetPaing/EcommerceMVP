@@ -1,21 +1,14 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters.impl
 
-import com.myosetpaing.ecommercemvp.data.model.*
-import com.myosetpaing.ecommercemvp.mvp.presenters.BasePresenter
+import androidx.lifecycle.ViewModel
+import com.myosetpaing.ecommercemvp.mvp.views.BaseView
 
-abstract class BasePresenterImpl : BasePresenter {
+abstract class BasePresenterImpl<V: BaseView> : ViewModel() {
 
-    protected lateinit var mProductModel: ProductModel
-    protected lateinit var mLoginModel: LoginModel
-    protected lateinit var mFavoriteModel: FavoriteModel
+    protected lateinit var mView: V
 
-    override fun onCreate() {
-        mProductModel = ProductModelImpl
-        mLoginModel = LoginModelImpl
-        mFavoriteModel = FavoriteModelImpl
-    }
-
-    override fun onDestory() {
+    fun initPresenter(view: V) {
+        mView = view
     }
 
 }

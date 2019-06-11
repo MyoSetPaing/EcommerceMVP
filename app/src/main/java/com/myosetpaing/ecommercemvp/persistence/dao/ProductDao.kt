@@ -1,5 +1,6 @@
 package com.myosetpaing.ecommercemvp.persistence.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,7 +14,7 @@ interface ProductDao {
     fun insertProductList(productList: List<ProductVO>)
 
     @Query("select * from product")
-    fun getProductList(): List<ProductVO>
+    fun getProductList(): LiveData<List<ProductVO>>
 
     @Query("select * from product where product_id=:productId")
     fun getProductById(productId: Int): ProductVO

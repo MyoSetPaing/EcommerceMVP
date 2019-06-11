@@ -1,37 +1,33 @@
 package com.myosetpaing.ecommercemvp.mvp.presenters.impl
 
+import com.myosetpaing.ecommercemvp.data.model.FavoriteModel
+import com.myosetpaing.ecommercemvp.data.model.FavoriteModelImpl
 import com.myosetpaing.ecommercemvp.data.vos.ProductVO
 import com.myosetpaing.ecommercemvp.delegates.FavoriteDelegate
 import com.myosetpaing.ecommercemvp.mvp.presenters.FavoritePresenter
 import com.myosetpaing.ecommercemvp.mvp.views.FavoriteView
 
-class FavoritePresenterImpl(val favoriteView: FavoriteView) : BasePresenterImpl(), FavoritePresenter {
+class FavoritePresenterImpl: BasePresenterImpl<FavoriteView>(), FavoritePresenter {
+    private val mFavoriteModel: FavoriteModel = FavoriteModelImpl
 
-    override fun onStart() {
-
-    }
-
-
-    override fun onStop() {
-    }
 
     override fun onUIReady() {
 
         mFavoriteModel.getFavoriteModel(object : FavoriteDelegate {
             override fun onSuccess(favoriteProductList: List<ProductVO>) {
-                favoriteView.showFavoriteList(favoriteProductList)
+                mView.showFavoriteList(favoriteProductList)
 
             }
 
             override fun emptyFavoriteList(msg: String) {
-                favoriteView.showNoFavoriteList(msg)
+                mView.showNoFavoriteList(msg)
             }
 
         })
     }
 
     override fun onTapProductItem(product: ProductVO) {
-        favoriteView.showProductDetail(product.product_id)
+        mView.showProductDetail(product.product_id)
     }
 
     override fun onTapFavorite(product: ProductVO) {
