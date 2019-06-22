@@ -99,7 +99,7 @@ class RetrofitDataAgent private constructor(): EcommerceDataAgent {
                     loginDelegate.onSuccess(loginUserResponse)
 
                 }else{
-                    loginDelegate.onFail("Login in fail")
+                    loginDelegate.onFail("Login  fail")
                 }
             }
         })

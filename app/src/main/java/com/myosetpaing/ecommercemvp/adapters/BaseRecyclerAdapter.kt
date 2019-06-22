@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myosetpaing.ecommercemvp.views.holders.BaseViewHolder
 import java.util.ArrayList
 
-abstract class BaseRecyclerAdapter<R : BaseViewHolder<D>, D : Any> : androidx.recyclerview.widget.RecyclerView.Adapter<R>() {
+abstract class BaseRecyclerAdapter<R : BaseViewHolder<D>, D : Any> : RecyclerView.Adapter<R>() {
 
     private var mDataList: MutableList<D> = ArrayList()
 

@@ -5,7 +5,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.myosetpaing.ecommercemvp.data.vos.CategoryVO
 
-class CategoryListConverter {
+class
+CategoryListConverter {
     @TypeConverter
     fun fromListToJson(category: List<CategoryVO>): String {
         return Gson().toJson(category)
